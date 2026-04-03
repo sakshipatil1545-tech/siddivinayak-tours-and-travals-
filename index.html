@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Siddhivinayak Tours & Travels | Premium Cab & Travel Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#e6b325',
+                        light: '#f9f9f9',
+                        dark: '#333'
+                    },
+                    fontFamily: {
+                        'playfair': ['Playfair Display', 'serif'],
+                        'roboto': ['Roboto', 'sans-serif']
+                    },
+                    animation: {
+                        'pulse-custom': 'pulse 2s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; }
+        .scroll-progress { position: fixed; top: 70px; left: 0; width: 0; height: 3px; background: #e6b325; z-index: 1000; transition: width 0.1s ease; }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; background: #e6b325; color: #1a365d; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 99; }
+        .back-to-top:hover { transform: translateY(-5px); background: #1a365d; color: #e6b325; }
+        .whatsapp-float { position: fixed; bottom: 30px; left: 30px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 100; transition: all 0.3s ease; animation: pulse 2s infinite; }
+        .whatsapp-float:hover { transform: scale(1.1); background: #128C7E; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+        .slide { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in, .slide-in-left, .slide-in-right, .scale-in { opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.appear { opacity: 1; transform: translateY(0); }
+        .slide-in-left.appear { opacity: 1; transform: translateX(0); }
+        .slide-in-right.appear { opacity: 1; transform: translateX(0); }
+        .scale-in.appear { opacity: 1; transform: scale(1); }
+        .service-card, .testimonial-card, .gallery-item { transition: all 0.4s ease; }
+        .service-card:hover, .testimonial-card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2); }
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+        .gallery-overlay { transition: transform 0.4s ease; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu-overlay { backdrop-filter: blur(3px); transition: opacity 0.3s; opacity: 0; visibility: hidden; }
+        .mobile-menu-overlay.show { opacity: 1; visibility: visible; }
+        .lightbox-modal { transition: opacity 0.3s ease; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #e6b325; box-shadow: 0 0 0 3px rgba(230,179,37,0.1); }
+        .footer-sitemap ul li a { transition: all 0.25s ease; display: inline-block; }
+        .footer-sitemap ul li a:hover { transform: translateX(6px); color: #e6b325; }
+        .counter { font-size: 3rem; font-weight: 700; color: #e6b325; }
+    </style>
+</head>
+<body class="bg-light text-dark overflow-x-hidden">
+
+    <!-- Floating WhatsApp Button (Primary Support) -->
+    <a href="https://wa.me/918888095111?text=Hello%20Siddhivinayak%20Tours%20%26%20Travels%2C%20I%20need%20assistance%20with%20my%20travel%20plans." target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal fixed inset-0 bg-black bg-opacity-90 z-[200] hidden items-center justify-center p-4" id="lightboxModal">
+        <div class="absolute top-5 right-8 text-white text-4xl cursor-pointer hover:text-secondary transition" id="lightboxClose">&times;</div>
+        <div class="absolute top-1/2 left-5 w-12 h-12 bg-black bg-opacity-50 text-white rounded-full flex items-center justify-center text-3xl cursor-pointer transition hover:bg-secondary transform -translate-y-1/2" id="lightboxPrev"><i class="fas fa-chevron-left"></i></div>
+        <div class="absolute top-1/2 right-5 w-12 h-12 bg-black bg-opacity-50 text-white rounded-full flex items-center justify-center text-3xl cursor-pointer transition hover:bg-secondary transform -translate-y-1/2" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
+        <div class="max-w-full max-h-full relative">
+            <img src="" alt="Gallery" class="lightbox-img max-w-full max-h-[85vh] rounded shadow-2xl" id="lightboxImage">
+            <div class="text-white text-center mt-4 text-lg" id="lightboxCaption"></div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center py-4 px-5 md:px-8">
+            <div class="logo">
+                <h3 class="text-2xl md:text-3xl font-bold text-primary">Siddhivinayak<span class="text-secondary">  Tours & Travels</span></h3>
+            </div>
+            <button class="mobile-menu-btn md:hidden text-primary text-2xl focus:outline-none" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="text-dark font-medium hover:text-secondary transition relative after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Home</a></li>
+                    <li><a href="#about" class="text-dark font-medium hover:text-secondary transition relative after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">About Us</a></li>
+                    <li><a href="#services" class="text-dark font-medium hover:text-secondary transition relative after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Services</a></li>
+                    <li><a href="#gallery" class="text-dark font-medium hover:text-secondary transition relative after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Gallery</a></li>
+                    <li><a href="#rating" class="text-dark font-medium hover:text-secondary transition relative after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Ratings</a></li>
+                    <li><a href="#contact" class="text-dark font-medium hover:text-secondary transition relative after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all hover:after:w-full">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-overlay fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="mobileMenuOverlay"></div>
+            <nav class="mobile-menu fixed top-0 right-0 w-80 max-w-[85vw] h-full bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 md:hidden" id="mobileMenu">
+                <div class="flex justify-between items-center p-5 border-b border-gray-200">
+                    <h3 class="text-xl font-bold text-primary">Menu</h3>
+                    <button class="mobile-menu-close text-primary text-2xl" id="mobileMenuClose"><i class="fas fa-times"></i></button>
+                </div>
+                <ul class="flex flex-col space-y-5 p-6">
+                    <li><a href="#home" class="text-dark text-lg font-medium hover:text-secondary block py-2">Home</a></li>
+                    <li><a href="#about" class="text-dark text-lg font-medium hover:text-secondary block py-2">About Us</a></li>
+                    <li><a href="#services" class="text-dark text-lg font-medium hover:text-secondary block py-2">Services</a></li>
+                    <li><a href="#gallery" class="text-dark text-lg font-medium hover:text-secondary block py-2">Gallery</a></li>
+                    <li><a href="#rating" class="text-dark text-lg font-medium hover:text-secondary block py-2">Ratings</a></li>
+                    <li><a href="#contact" class="text-dark text-lg font-medium hover:text-secondary block py-2">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Slider Section (3 slides with high-quality unsplash images) -->
+    <section id="home" class="relative overflow-hidden" style="margin-top: 70px; height: 100vh;">
+        <div class="slides-container flex transition-all duration-700 ease-in-out h-full w-full" id="slidesContainer">
+            <div class="slide w-full h-full flex items-center justify-center relative flex-shrink-0">
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="relative z-10 text-white max-w-4xl text-center p-8 bg-primary bg-opacity-70 rounded-xl backdrop-blur-sm">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Discover Amazing Destinations</h1>
+                    <p class="text-lg md:text-xl mb-10">Experience the world with Siddhivinayak tours and travel. Premium cab services, personalized itineraries, and reliable fleet for your perfect getaway.</p>
+                    <a href="#services" class="inline-block bg-secondary text-primary px-8 py-4 text-lg font-semibold rounded-lg border-2 border-secondary transition hover:bg-transparent hover:text-secondary hover:shadow-xl transform hover:-translate-y-1">Explore Our Services</a>
+                </div>
+            </div>
+            <div class="slide w-full h-full flex items-center justify-center relative flex-shrink-0">
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="relative z-10 text-white max-w-4xl text-center p-8 bg-primary bg-opacity-70 rounded-xl backdrop-blur-sm">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Reliable Cab Services</h1>
+                    <p class="text-lg md:text-xl mb-10">Travel in comfort and safety with well-maintained vehicles. Local tours, outstation trips, and airport transfers with professional drivers.</p>
+                    <a href="#contact" class="inline-block bg-secondary text-primary px-8 py-4 text-lg font-semibold rounded-lg border-2 border-secondary transition hover:bg-transparent hover:text-secondary">Book Your Ride</a>
+                </div>
+            </div>
+            <div class="slide w-full h-full flex items-center justify-center relative flex-shrink-0">
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="relative z-10 text-white max-w-4xl text-center p-8 bg-primary bg-opacity-70 rounded-xl backdrop-blur-sm">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Custom Travel Packages</h1>
+                    <p class="text-lg md:text-xl mb-10">Personalized vacation planning including accommodation, transport, and guided tours. Hassle-free travel experiences curated for you.</p>
+                    <a href="#contact" class="inline-block bg-secondary text-primary px-8 py-4 text-lg font-semibold rounded-lg border-2 border-secondary transition hover:bg-transparent hover:text-secondary">Plan Your Trip</a>
+                </div>
+            </div>
+        </div>
+        <button class="prev-slide absolute top-1/2 left-4 md:left-8 w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-20 text-white rounded-full flex items-center justify-center cursor-pointer transition hover:bg-opacity-40 transform -translate-y-1/2 z-10"><i class="fas fa-chevron-left"></i></button>
+        <button class="next-slide absolute top-1/2 right-4 md:right-8 w-10 h-10 md:w-12 md:h-12 bg-white bg-opacity-20 text-white rounded-full flex items-center justify-center cursor-pointer transition hover:bg-opacity-40 transform -translate-y-1/2 z-10"><i class="fas fa-chevron-right"></i></button>
+        <div class="slide-controls absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-10" id="slideDots"></div>
+    </section>
+
+    <!-- Why Choose Us Section (3 cards) -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">Why Choose Us</h2>
+                <p class="text-lg text-gray-600 mt-6">Exceptional travel services with focus on comfort, safety, and satisfaction.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-10 text-center transition hover:-translate-y-2 hover:shadow-xl fade-in"><i class="fas fa-car-alt text-5xl text-secondary mb-5"></i><h3 class="text-xl font-semibold text-primary mb-3">Premium Fleet</h3><p class="text-gray-600">Well-maintained vehicles from economy to luxury class for all travel needs.</p></div>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-10 text-center transition hover:-translate-y-2 hover:shadow-xl fade-in"><i class="fas fa-shield-alt text-5xl text-secondary mb-5"></i><h3 class="text-xl font-semibold text-primary mb-3">Safe & Secure</h3><p class="text-gray-600">Experienced drivers and 24/7 support ensure your safety throughout.</p></div>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-10 text-center transition hover:-translate-y-2 hover:shadow-xl fade-in"><i class="fas fa-headset text-5xl text-secondary mb-5"></i><h3 class="text-xl font-semibold text-primary mb-3">24/7 Support</h3><p class="text-gray-600">Round-the-clock customer assistance for all travel requirements.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section (exact content from original) -->
+    <section id="about" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-16"><h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">About Us</h2></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div><h3 class="text-2xl font-semibold text-primary mb-6">Your Journey, Our Commitment Since 2005</h3><p class="text-gray-700 mb-6 leading-relaxed">Siddhivinayak Tours & Travels was founded with a mission to make travel accessible, comfortable, and memorable. With over 18 years of experience in the travel industry, we have built a reputation for reliability and excellence.</p><p class="text-gray-700 mb-6 leading-relaxed">Our team comprises experienced travel professionals who are passionate about creating perfect travel experiences. We understand that every journey is unique, which is why we offer personalized services tailored to your specific needs and preferences.</p><p class="text-gray-700 leading-relaxed">From local cab services to complete travel packages, we handle every aspect of your journey with meticulous attention to detail. Our fleet of well-maintained vehicles and professional drivers ensure your safety and comfort throughout your travels.</p></div>
+                <div class="rounded-xl overflow-hidden shadow-xl"><img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" alt="Siddhivinayak tours and travel Team" class="w-full h-auto transition-transform duration-500 hover:scale-105"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Cab Service, Taxi Booking, Travel Packages with original descriptions) -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-16"><h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">Our Services</h2></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-md"><div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"></div><div class="p-6"><h3 class="text-xl font-semibold text-primary mb-3">Cab Service</h3><p class="text-gray-600 mb-4">Reliable and comfortable cab services for local and outstation travel. Our fleet includes a variety of vehicles from economy to luxury class to suit your needs and budget.</p><p class="text-sm text-gray-700 mb-2"><i class="fas fa-check-circle text-secondary mr-2"></i> 24/7 availability</p><p class="text-sm text-gray-700"><i class="fas fa-check-circle text-secondary mr-2"></i> Professional drivers</p></div></div>
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-md"><div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"></div><div class="p-6"><h3 class="text-xl font-semibold text-primary mb-3">Taxi Booking</h3><p class="text-gray-600 mb-4">Easy and convenient taxi booking services for airport transfers, city tours, and intercity travel. Book your taxi in advance for a hassle-free travel experience.</p><p class="text-sm text-gray-700 mb-2"><i class="fas fa-check-circle text-secondary mr-2"></i> Online & phone booking</p><p class="text-sm text-gray-700"><i class="fas fa-check-circle text-secondary mr-2"></i> Fixed & transparent pricing</p></div></div>
+                <div class="service-card bg-white rounded-xl overflow-hidden shadow-md"><div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"></div><div class="p-6"><h3 class="text-xl font-semibold text-primary mb-3">Travel Packages</h3><p class="text-gray-600 mb-4">Customized travel packages for individuals, families, and groups. We design itineraries that include accommodation, transportation, and guided tours for a complete travel experience.</p><p class="text-sm text-gray-700 mb-2"><i class="fas fa-check-circle text-secondary mr-2"></i> Personalized itineraries</p><p class="text-sm text-gray-700"><i class="fas fa-check-circle text-secondary mr-2"></i> All-inclusive packages</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (13 images exactly as provided in original) -->
+    <section id="gallery" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-16"><h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">Our Gallery</h2><p class="text-gray-600">Explore our fleet, memorable journeys, and travel experiences through our gallery</p></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10" id="galleryContainer"></div>
+            <div class="text-center"><button class="see-more-btn bg-primary text-white px-8 py-3 rounded-lg font-semibold transition hover:bg-secondary hover:text-primary shadow-md" id="seeMoreBtn"><i class="fas fa-plus-circle mr-2"></i> See More Images</button></div>
+        </div>
+    </section>
+
+    <!-- Rating Section with customer ratings and review form -->
+    <section id="rating" class="py-20 bg-white">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-16"><h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">Customer Ratings & Reviews</h2><p class="text-gray-600">See what our customers say about their travel experiences with Siddhivinayak tours and travel</p></div>
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md text-center"><div class="counter text-6xl font-bold text-secondary" data-target="4.8">4.8</div><div class="text-3xl text-secondary my-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div><p class="mb-4">Based on <span class="font-bold" data-target="347">347</span> customer reviews</p><div class="space-y-3 text-left max-w-md mx-auto"><div class="flex justify-between"><span>Service Quality</span><span>4.9 ★</span></div><div class="flex justify-between"><span>Vehicle Condition</span><span>4.8 ★</span></div><div class="flex justify-between"><span>Driver Professionalism</span><span>4.9 ★</span></div><div class="flex justify-between"><span>Pricing & Value</span><span>4.7 ★</span></div><div class="flex justify-between"><span>Safety & Security</span><span>4.8 ★</span></div></div></div>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-md"><h3 class="text-2xl font-semibold text-primary text-center mb-6">Share Your Experience</h3><form id="ratingForm"><input type="text" id="ratingName" placeholder="Your Name" class="w-full p-3 border rounded mb-4" required><input type="email" id="ratingEmail" placeholder="Email Address" class="w-full p-3 border rounded mb-4" required><textarea id="ratingMessage" rows="4" placeholder="Tell us about your experience with Siddhivinayak tours and travel" class="w-full p-3 border rounded mb-4" required></textarea><button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary hover:text-primary transition flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Submit Review via WhatsApp (+91 88880 45111)</button></form></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section (exactly 3 as original) -->
+    <section class="py-20 bg-gray-100"><div class="container mx-auto px-5"><div class="text-center mb-16"><h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">What Our Customers Say</h2><p class="text-gray-600">Read testimonials from our happy travelers</p></div><div class="grid md:grid-cols-3 gap-8"><div class="testimonial-card bg-white p-8 rounded-xl shadow-md"><div class="flex items-center mb-4"><div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">RP</div><div><h4 class="font-bold text-primary">Rajesh Patil</h4><div class="text-gray-500 text-sm">March 15, 2023</div></div></div><div class="text-secondary mb-3">★★★★★</div><p class="italic text-gray-600">"Excellent service! The driver was punctual, polite, and the vehicle was spotlessly clean. My family had a wonderful trip to Mahabaleshwar. Highly recommended!"</p></div><div class="testimonial-card bg-white p-8 rounded-xl shadow-md"><div class="flex items-center mb-4"><div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">SJ</div><div><h4 class="font-bold text-primary">Sunita Jadhav</h4><div class="text-gray-500 text-sm">February 28, 2023</div></div></div><div class="text-secondary mb-3">★★★★★</div><p class="italic text-gray-600">"Used their airport transfer service multiple times. Always on time, professional drivers, and clean cars. Great value for money and reliable service."</p></div><div class="testimonial-card bg-white p-8 rounded-xl shadow-md"><div class="flex items-center mb-4"><div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">SD</div><div><h4 class="font-bold text-primary">Sanjay Deshmukh</h4><div class="text-gray-500 text-sm">January 10, 2023</div></div></div><div class="text-secondary mb-3">★★★★½</div><p class="italic text-gray-600">"Booked a corporate travel package for our team. Everything was well organized - from hotel bookings to transportation. Will definitely use their services again."</p></div></div></div></section>
+
+    <!-- Contact Section with WhatsApp numbers +91 88880 95111 and +91 88880 45111 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-5">
+            <div class="text-center mb-16"><h2 class="text-4xl font-bold font-playfair text-primary mb-4 relative inline-block after:content-[''] after:absolute after:bottom-[-10px] after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-1 after:bg-secondary">Contact Us</h2><p class="text-gray-600">Reach out to us through any of these channels for your travel needs</p></div>
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div><h3 class="text-2xl font-semibold text-primary mb-6">Connect With Us</h3><div class="space-y-5"><div class="flex items-start"><i class="fas fa-map-marker-alt text-secondary text-xl mr-4 mt-1"></i><div><h5 class="font-semibold text-primary">Office Address</h5><p class="text-gray-700">Office No. 202, Empire Estate, Mumbai-Pune Highway, Kalewadi, Pune - 411017</p></div></div><div class="flex items-start"><i class="fas fa-phone-alt text-secondary text-xl mr-4 mt-1"></i><div><h5 class="font-semibold text-primary">Contact Numbers</h5><p class="text-gray-700 font-bold">+91 88880 95111</p><p class="text-gray-700 font-bold">+91 88880 45111</p><div class="flex flex-wrap gap-3 mt-3"><button onclick="window.open('https://wa.me/918888095111?text=Hello%20Siddhivinayak%20Tours%20%26%20Travels%2C%20I%20need%20assistance%20with%20my%20travel%20plans.','_blank')" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 hover:bg-green-700"><i class="fab fa-whatsapp"></i> WhatsApp +91 88880 95111</button><button onclick="window.open('https://wa.me/918888045111?text=Hello%20Siddhivinayak%20Tours%20%26%20Travels%2C%20I%20need%20assistance%20with%20my%20travel%20plans.','_blank')" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 hover:bg-green-700"><i class="fab fa-whatsapp"></i> WhatsApp +91 88880 45111</button></div></div></div><div class="flex items-start"><i class="fas fa-envelope text-secondary text-xl mr-4 mt-1"></i><div><h5 class="font-semibold text-primary">Email Address</h5><p class="text-gray-700">info@siddhivinayaktours.com</p></div></div></div></div>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg"><h3 class="text-2xl font-semibold text-primary text-center mb-6">Send us Your Travel Requirements</h3><form id="contactForm"><input type="text" id="name" placeholder="Full Name" class="w-full p-3 border rounded mb-4" required><input type="tel" id="mobile" placeholder="Mobile Number" class="w-full p-3 border rounded mb-4" required><input type="email" id="email" placeholder="Email Address" class="w-full p-3 border rounded mb-4" required><select id="service" class="w-full p-3 border rounded mb-4" required><option value="">Select a service</option><option value="cab">Cab Service</option><option value="taxi">Taxi Booking</option><option value="package">Travel Package</option><option value="other">Other</option></select><textarea id="message" rows="4" placeholder="Tell us about your travel plans - destination, dates, number of people, etc." class="w-full p-3 border rounded mb-4" required></textarea><button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-secondary hover:text-primary transition flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> Send Travel Request (+91 88880 95111)</button></form></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Detailed Sitemap (only content present in website) -->
+    <footer class="bg-primary text-white pt-16 pb-8">
+        <div class="container mx-auto px-5">
+            <div class="footer-sitemap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-white border-opacity-20 mb-8">
+                <div><h3 class="text-xl font-bold mb-4 border-l-4 border-secondary pl-3">Quick Links</h3><ul class="space-y-2"><li><a href="#home" class="text-gray-300 hover:text-secondary">Home</a></li><li><a href="#about" class="text-gray-300 hover:text-secondary">About Us</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">Services</a></li><li><a href="#gallery" class="text-gray-300 hover:text-secondary">Gallery</a></li><li><a href="#rating" class="text-gray-300 hover:text-secondary">Ratings</a></li><li><a href="#contact" class="text-gray-300 hover:text-secondary">Contact Us</a></li></ul></div>
+                <div><h3 class="text-xl font-bold mb-4 border-l-4 border-secondary pl-3">Our Services</h3><ul class="space-y-2"><li><a href="#services" class="text-gray-300 hover:text-secondary">Cab Service</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">Taxi Booking</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">Travel Packages</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">Airport Transfer</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">City Tours</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">Outstation Trips</a></li><li><a href="#services" class="text-gray-300 hover:text-secondary">Corporate Travel</a></li></ul></div>
+                <div><h3 class="text-xl font-bold mb-4 border-l-4 border-secondary pl-3">Support</h3><ul class="space-y-2"><li><a href="#contact" class="text-gray-300 hover:text-secondary">24/7 Customer Support</a></li><li><a href="#contact" class="text-gray-300 hover:text-secondary">Booking Assistance</a></li><li><a href="#rating" class="text-gray-300 hover:text-secondary">Leave a Review</a></li><li><a href="#" class="text-gray-300 hover:text-secondary">FAQs</a></li><li><a href="#" class="text-gray-300 hover:text-secondary">Privacy Policy</a></li><li><a href="#" class="text-gray-300 hover:text-secondary">Cancellation Policy</a></li></ul></div>
+                <div><h3 class="text-xl font-bold mb-4 border-l-4 border-secondary pl-3">Connect & App</h3><ul class="space-y-2"><li><a href="https://wa.me/918888095111" target="_blank" class="text-gray-300 hover:text-secondary"><i class="fab fa-whatsapp mr-2 text-green-400"></i>WhatsApp +91 88880 95111</a></li><li><a href="https://wa.me/918888045111" target="_blank" class="text-gray-300 hover:text-secondary"><i class="fab fa-whatsapp mr-2 text-green-400"></i>WhatsApp +91 88880 45111</a></li><li><a href="#" class="text-gray-300 hover:text-secondary"><i class="fab fa-instagram mr-2"></i>Instagram</a></li><li><a href="#" class="text-gray-300 hover:text-secondary"><i class="fab fa-facebook mr-2"></i>Facebook</a></li><li><a href="#" class="text-gray-300 hover:text-secondary"><i class="fas fa-map-marker-alt mr-2"></i>Office Location</a></li></ul></div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div><h3 class="text-2xl font-bold">Siddhivinayak<span class="text-secondary"> Tours & Travels</span></h3><p class="text-gray-300 text-sm mt-1">Your trusted partner for memorable travel experiences since 2005.</p></div>
+                <div><p class="text-gray-300 text-sm">&copy; 2025 Siddhivinayak tours and travel. All rights reserved.</p></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery Images Data with original names (13 images as per files)
+        const galleryImagesList = [
+            { src: "image1.jpeg", title: "Siddhivinayak tours and travel Vehicle 1", desc: "Comfortable and reliable transportation" },
+            { src: "image2.jpeg", title: "Siddhivinayak tours and travel Vehicle 2", desc: "Well-maintained fleet for safe travel" },
+            { src: "image3.jpeg", title: "Wear Seatbelts", desc: "Safety first - Please wear seatbelt" },
+            { src: "image4.jpeg", title: "Siddhivinayak tours and travel Vehicle 4", desc: "Perfect for family trips" },
+            { src: "image5.jpeg", title: "PETROL Vehicle", desc: "Efficient and ready for long drives" },
+            { src: "image6.jpeg", title: "Siddhivinayak tours and travel Vehicle 6", desc: "Outstation tour ready" },
+            { src: "image7.jpeg", title: "Printing Services", desc: "Vinyl, Fabric, LED Board printing" },
+            { src: "image8.jpeg", title: "Siddhivinayak tours and travel Vehicle 8", desc: "City tour special" },
+            { src: "image9.jpeg", title: "Siddhivinayak tours and travel Vehicle 9", desc: "Corporate travel solution" },
+            { src: "image10.jpeg", title: "Fleet Registration", desc: "MH12VT6785 & MH14LL3469" },
+            { src: "image13.jpeg", title: "Highway Ready", desc: "Long distance comfort" }
+        ];
+        let galleryShowAll = false;
+        const galleryContainer = document.getElementById('galleryContainer');
+        function renderGallery() { const items = galleryShowAll ? galleryImagesList : galleryImagesList.slice(0,6); galleryContainer.innerHTML = items.map((img,i)=>`<div class="gallery-item relative rounded-xl overflow-hidden shadow-lg h-64 cursor-pointer transition-all hover:-translate-y-2"><img src="${img.src}" alt="${img.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"><div class="gallery-overlay absolute bottom-0 left-0 w-full bg-gradient-to-t from-primary to-transparent p-4 text-white transform translate-y-full transition-transform duration-300"><h4 class="font-bold">${img.title}</h4><p class="text-sm">${img.desc}</p></div></div>`).join(''); document.querySelectorAll('.gallery-item').forEach((el,idx)=>el.addEventListener('click',()=>openLightbox(galleryShowAll?idx:idx))); }
+        renderGallery();
+        document.getElementById('seeMoreBtn').addEventListener('click',()=>{ galleryShowAll=!galleryShowAll; renderGallery(); document.getElementById('seeMoreBtn').innerHTML = galleryShowAll ? '<i class="fas fa-minus-circle mr-2"></i> See Less' : '<i class="fas fa-plus-circle mr-2"></i> See More Images'; });
+        let currentLightbox = 0;
+        function openLightbox(index){ currentLightbox = galleryShowAll?index:index; const imgData = galleryShowAll?galleryImagesList[currentLightbox]:galleryImagesList[currentLightbox]; document.getElementById('lightboxImage').src = imgData.src; document.getElementById('lightboxCaption').innerHTML = `<strong>${imgData.title}</strong><br>${imgData.desc}`; document.getElementById('lightboxModal').style.display='flex'; document.body.style.overflow='hidden'; }
+        function closeLightbox(){ document.getElementById('lightboxModal').style.display='none'; document.body.style.overflow='auto'; }
+        document.getElementById('lightboxClose').onclick=closeLightbox; document.getElementById('lightboxPrev').onclick=()=>{ currentLightbox = (currentLightbox-1+(galleryShowAll?galleryImagesList.length:6))%(galleryShowAll?galleryImagesList.length:6); openLightbox(currentLightbox); }; document.getElementById('lightboxNext').onclick=()=>{ currentLightbox = (currentLightbox+1)%(galleryShowAll?galleryImagesList.length:6); openLightbox(currentLightbox); }; document.getElementById('lightboxModal').addEventListener('click',(e)=>e.target===document.getElementById('lightboxModal')&&closeLightbox());
+        // Slider logic
+        let slideIndex=0; const slides=document.querySelectorAll('.slide'); const containerSlide=document.getElementById('slidesContainer'); const dotsContainer=document.getElementById('slideDots'); for(let i=0;i<slides.length;i++){ const dot=document.createElement('div'); dot.className=`w-3 h-3 rounded-full cursor-pointer transition-all ${i===0?'bg-secondary scale-125':'bg-white bg-opacity-50'}`; dot.addEventListener('click',()=>showSlide(i)); dotsContainer.appendChild(dot); } function showSlide(i){ if(i<0)i=slides.length-1; if(i>=slides.length)i=0; containerSlide.style.transform=`translateX(-${i*100}%)`; slideIndex=i; document.querySelectorAll('#slideDots div').forEach((dot,idx)=>{ if(idx===i)dot.classList.add('bg-secondary','scale-125'); else dot.classList.remove('bg-secondary','scale-125'); }); } document.querySelector('.prev-slide').addEventListener('click',()=>showSlide(slideIndex-1)); document.querySelector('.next-slide').addEventListener('click',()=>showSlide(slideIndex+1)); setInterval(()=>showSlide(slideIndex+1),5000);
+        // Contact & Rating Forms (WhatsApp)
+        document.getElementById('contactForm').addEventListener('submit',(e)=>{ e.preventDefault(); const name=document.getElementById('name').value; const mobile=document.getElementById('mobile').value; const email=document.getElementById('email').value; const service=document.getElementById('service').value; const msg=document.getElementById('message').value; const text=`Hello Siddhivinayak Tours & Travels,%0A%0A*New Travel Request*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Mobile:* ${encodeURIComponent(mobile)}%0A*Email:* ${encodeURIComponent(email)}%0A*Service:* ${encodeURIComponent(service)}%0A*Message:* ${encodeURIComponent(msg)}%0A%0APlease contact me for further details.`; window.open(`https://wa.me/918888095111?text=${text}`,'_blank'); e.target.reset(); });
+        document.getElementById('ratingForm').addEventListener('submit',(e)=>{ e.preventDefault(); const name=document.getElementById('ratingName').value; const email=document.getElementById('ratingEmail').value; const review=document.getElementById('ratingMessage').value; const text=`Hello Siddhivinayak Tours & Travels,%0A%0A*New Customer Review*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Review:* ${encodeURIComponent(review)}%0A%0AThank you!`; window.open(`https://wa.me/918888045111?text=${text}`,'_blank'); e.target.reset(); });
+        // Scroll animations & back to top
+        window.addEventListener('scroll',()=>{ const winScroll=document.body.scrollTop||document.documentElement.scrollTop; const height=document.documentElement.scrollHeight-document.documentElement.clientHeight; const scrolled=(winScroll/height)*100; document.getElementById('scrollProgress').style.width=scrolled+'%'; const backBtn=document.getElementById('backToTop'); if(window.scrollY>300){ backBtn.style.opacity='1'; backBtn.style.visibility='visible'; }else{ backBtn.style.opacity='0'; backBtn.style.visibility='hidden'; } }); document.getElementById('backToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'})); const observer=new IntersectionObserver((entries)=>{ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('appear');})},{threshold:0.1}); document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in, .service-card, .testimonial-card').forEach(el=>observer.observe(el)); document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+        // Mobile menu
+        const menuBtn=document.getElementById('mobileMenuBtn'); const mobileMenu=document.getElementById('mobileMenu'); const overlay=document.getElementById('mobileMenuOverlay'); const closeMenu=()=>{ mobileMenu.classList.remove('open'); overlay.classList.remove('show'); }; menuBtn.addEventListener('click',()=>{ mobileMenu.classList.add('open'); overlay.classList.add('show'); }); document.getElementById('mobileMenuClose').addEventListener('click',closeMenu); overlay.addEventListener('click',closeMenu); document.querySelectorAll('#mobileMenu a').forEach(l=>l.addEventListener('click',closeMenu));
+        // Counter animation
+        const counters=document.querySelectorAll('.counter'); const counterObserver=new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ const el=entry.target; const target=parseFloat(el.dataset.target); let current=0; const step=target/40; const timer=setInterval(()=>{ current+=step; if(current>=target){ el.innerText=target%1===0?Math.floor(target):target.toFixed(1); clearInterval(timer); }else{ el.innerText=target%1===0?Math.floor(current):current.toFixed(1); } },30); counterObserver.unobserve(el); } }) },{threshold:0.5}); counters.forEach(c=>counterObserver.observe(c));
+    </script>
+</body>
+</html>
